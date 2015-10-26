@@ -6,16 +6,25 @@ ADDON = xbmcaddon.Addon(id=ADDON_ID)
 BaseURL = 'http://chameleon.x10host.com/test/links/'
 
 #********** Test Text Files YouTube**********
+LEntertainment = 'LIVETV.txt'
 LMovies = 'NRLGAMESYT.txt'
 LKids = 'NRLGAMESYT.txt'
 LSports = 'NRLGAMESYT.txt'
 
 
 def AllLiveTV():
+	LiveEntertainment()
 	LiveMovies()
 	LiveKids()
 	LiveSport()
 	
+	modules.AUTO_VIEW('500')
+
+def LiveEntertainment():
+	link = modules.OPEN_URL(BaseURL + LEntertainment).replace('\n','').replace('\r','')
+	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
+	for name,url,iconimage,fanart,description in match:
+		modules.addYTVID('',name,url,19,iconimage,fanart,'',description)
 	modules.AUTO_VIEW('500')
 
 def LiveMovies():

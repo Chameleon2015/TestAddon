@@ -54,6 +54,18 @@ def OPEN_URL(url):
     response.close()
     return link 
 
+def Play_URL(name, url, iconimage):
+	image = iconimage
+	title = name
+	
+	liz = xbmcgui.ListItem(title, iconImage=image, thumbnailImage=image)
+	
+	liz.setInfo( type="Video", infoLabels={ "Title": title} )
+	
+	liz.setPath(url)
+	xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
+
+
 def AUTO_VIEW(content = ''):
     if not content:
         return
