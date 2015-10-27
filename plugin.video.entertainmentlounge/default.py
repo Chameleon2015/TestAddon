@@ -11,7 +11,7 @@ from addon.common.net import Net
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -35,14 +35,15 @@ def HOME_MENU():
 #	modules.addDir('Live Movies','',6,ART+'LiveMovies.png',FANART,'')
 #	modules.addDir('Movies','',7,ART+'Movies.png',FANART,'')
 #	modules.addDir('Music','',8,ART+'Music.png',FANART,'')
+#	modules.addDir('24/7 Shows','',11,ART+'SportReplay.png',FANART,'')
 	AUTO_VIEW('500')
 
 def LIVE_TV():
-	modules.addDir('All','',20,ART+'LiveTv.png','','')
-	modules.addDir('Entertainment','',24,ART+'LiveTv.png','','')
-	modules.addDir('Movies','',21,ART+'LiveTv.png','','')
-	modules.addDir('Kids','',22,ART+'LiveTv.png','','')
-	modules.addDir('Sport','',23,ART+'LiveTv.png','','')
+	modules.addDir('All','',20,ART+'LiveTv.png','','hello all the world')
+	modules.addDir('Entertainment','',24,ART+'LiveTv.png','','hello all the world')
+	modules.addDir('Movies','',21,ART+'LiveTv.png','','hello all the world')
+	modules.addDir('Kids','',22,ART+'LiveTv.png','','hello all the world')
+	modules.addDir('Sport','',23,ART+'LiveTv.png','','hello all the world')
 	AUTO_VIEW('500')
 
 def TV_SHOWS():
@@ -96,18 +97,8 @@ def Text_Boxes(heading,anounce):
       return
   TextBox() 
 
-def AUTO_VIEW(content = ''):
-    if not content:
-        return
-
-    xbmcplugin.setContent(int(sys.argv[1]), content)
-    if ADDON.getSetting('auto-view') != 'true':
-        return
-
-    if content == 'addons':
-        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting('addon_view'))
-    else:
-        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting('default-view'))
+def AUTO_VIEW(Vmode = ''):
+	xbmc.executebuiltin("Container.SetViewMode(" + Vmode +")")
 
 def get_params():
         param=[]
@@ -182,6 +173,7 @@ elif mode == 7		: MOVIES_OD()
 elif mode == 8		: MUSIC()
 elif mode == 9		: yt.PlayVideo(url)
 elif mode == 10		: SportsReplayMenu.NRL_YT_RP()
+elif mode == 11		: LiveTvMenu.TwentyFour_Seven()
 elif mode == 19		: modules.Play_URL(name, url, iconimage)
 elif mode == 20		: LiveTvMenu.AllLiveTV()
 elif mode == 21		: LiveTvMenu.LiveMovies()

@@ -54,27 +54,15 @@ def OPEN_URL(url):
     response.close()
     return link 
 
-def Play_URL(name, url, iconimage):
+def Play_URL(name, url, iconimage, forcePlayer=False):
 	image = iconimage
 	title = name
+	addon_handle = int(sys.argv[1])
+	xbmcplugin.setContent(addon_handle, 'movies')
 	
-	liz = xbmcgui.ListItem(title, iconImage=image, thumbnailImage=image)
-	
-	liz.setInfo( type="Video", infoLabels={ "Title": title} )
-	
-	liz.setPath(url)
-	xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, liz)
+	li = xbmcgui.ListItem(title, iconImage=image)
+	xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
 
 
-def AUTO_VIEW(content = ''):
-    if not content:
-        return
-
-    xbmcplugin.setContent(int(sys.argv[1]), content)
-    if ADDON.getSetting('auto-view') != 'true':
-        return
-
-    if content == 'addons':
-        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting('addon_view'))
-    else:
-        xbmc.executebuiltin("Container.SetViewMode(%s)" % ADDON.getSetting('default-view'))
+def AUTO_VIEW(Vmode = ''):
+	xbmc.executebuiltin("Container.SetViewMode(" + Vmode +")")
