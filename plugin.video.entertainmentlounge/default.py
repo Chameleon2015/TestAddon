@@ -11,7 +11,7 @@ from addon.common.net import Net
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.3"
+VERSION = "0.0.4"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -56,6 +56,7 @@ def LIVE_SPORTS():
 
 def SPORTS_RP():
 	modules.addDir('NRL','',10,ART+'LiveTv.png','','')
+	modules.addDir('Match Of The Day','',25,ART+'LiveTv.png','','')
 	AUTO_VIEW('500')
 
 def LIVE_MOVIES():
@@ -180,6 +181,7 @@ elif mode == 21		: LiveTvMenu.LiveMovies()
 elif mode == 22		: LiveTvMenu.LiveKids()
 elif mode == 23		: LiveTvMenu.LiveSport()
 elif mode == 24		: LiveTvMenu.LiveEntertainment()
+elif mode == 25		: SportsReplayMenu.YT_Match_Of_The_Day()
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
