@@ -3,7 +3,7 @@ import time
 import urllib, urllib2
 import re
 from resources.modules import modules, yt
-from resources.menus import SportsReplayMenu, LiveTvMenu
+from resources.menus import SportsReplayMenu, LiveTvMenu, TestMenu
 from addon.common.addon import Addon
 from addon.common.net import Net
 
@@ -11,7 +11,7 @@ from addon.common.net import Net
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.4"
+VERSION = "0.0.5"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -21,13 +21,14 @@ ART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID + '/re
 BaseURL = 'http://chameleon.x10host.com/test/links/'
 
 #********** Test Text Files YouTube**********
-
+addon_handle = int(sys.argv[1])
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #********** Menu's **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def HOME_MENU():
+	modules.addDir('Test Menu', BaseURL + 'Entertainment.m3u',27,ART+'LiveTv.png','','')
 	modules.addDir('Live TV','',1,ART+'LiveTv.png','','')
 #	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
 #	modules.addDir('Live Sports','',3,ART+'LiveSport.png',FANART,'')
@@ -179,9 +180,12 @@ elif mode == 19		: modules.Play_URL(name, url, iconimage)
 elif mode == 20		: LiveTvMenu.AllLiveTV()
 elif mode == 21		: LiveTvMenu.LiveMovies()
 elif mode == 22		: LiveTvMenu.LiveKids()
-elif mode == 23		: LiveTvMenu.LiveSport()
+elif mode == 23		: LiveTvMenu.LiveStalkerSport()
 elif mode == 24		: LiveTvMenu.LiveEntertainment()
 elif mode == 25		: SportsReplayMenu.YT_Match_Of_The_Day()
+elif mode == 26		: LiveTvMenu.LiveStalkerSport()
+elif mode == 27		: TestMenu.TestMenuDIR(url)
+elif mode == 28		: modules.TestPlayUrl(name, url, iconimage)
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
