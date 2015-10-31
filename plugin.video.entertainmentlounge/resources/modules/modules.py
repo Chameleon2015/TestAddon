@@ -1,11 +1,31 @@
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, os, sys
 import urllib, urllib2
+from resources.modules import common
 
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 ART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID + '/resources/icons/'))
 FANART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID , 'fanart.jpg'))
 localizedString = ADDON.getLocalizedString
+
+addon_data_dir = os.path.join(xbmc.translatePath("special://userdata/addon_data" ).decode("utf-8"), ADDON_ID)
+if not os.path.exists(addon_data_dir):
+	os.makedirs(addon_data_dir)
+
+tmpListFile = os.path.join(addon_data_dir, 'tempList.txt')
+
+def TestMenuDIR(url):
+	tmpList = []
+	list = common.m3u2list(url)
+
+	for channel in list:
+		name = common.GetEncodeString(channel["display_name"])
+		AddTestDir(name ,channel["url"], 28, "", isFolder=False)
+		tmpList.append({"url": channel["url"], "image": "", "name": name.decode("utf-8")})
+
+	common.SaveList(tmpListFile, tmpList)
+
+	AUTO_VIEW('518')
 
 def addDir(name,url,mode,iconimage,fanart,description):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&fanart="+urllib.quote_plus(fanart)+"&description="+urllib.quote_plus(description)
@@ -28,7 +48,7 @@ def AddTestDir(name, url, mode, iconimage, description="", isFolder=True, backgr
 		liz.setProperty('fanart_image', background)
 	if mode == 1 or mode == 2:
 		liz.addContextMenuItems(items = [('{0}'.format(localizedString(10008).encode('utf-8')), 'XBMC.RunPlugin({0}?url={1}&mode=22)'.format(sys.argv[0], urllib.quote_plus(url)))])
-	elif mode == 3:
+	elif mode == 28:
 		liz.setProperty('IsPlayable', 'true')
 		liz.addContextMenuItems(items = [('{0}'.format(localizedString(10009).encode('utf-8')), 'XBMC.RunPlugin({0}?url={1}&mode=31&iconimage={2}&name={3})'.format(sys.argv[0], urllib.quote_plus(url), iconimage, name))])
 	elif mode == 32:
@@ -74,7 +94,7 @@ def OPEN_URL(url):
     response.close()
     return link 
 
-def Play_URL(name, url, iconimage, forcePlayer=True):
+def Play_URL(name, url, iconimage, forcePlayer=False):
 	image = iconimage
 	title = name
 	addon_handle = int(sys.argv[1])

@@ -1,6 +1,7 @@
 import re, sys, os, xbmc, xbmcaddon, xbmcplugin, xbmcgui, urllib, urllib2
 from resources.modules import modules, yt
 
+
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 BaseURL = 'http://chameleon.x10host.com/test/links/'
@@ -8,13 +9,11 @@ ART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID + '/re
 FANART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID , 'fanart.jpg'))
 
 #********** Test Text Files YouTube**********
-LEntertainment = 'LIVETV.txt'
-LMovies = 'LIVEMOVIES.txt'
-LKids = 'LIVEKIDS.txt'
-LSports = 'LIVESPORTS.txt'
-LSSports = 'LiveStalkerSport.txt'
-TwentyFS = 'TWENTYFOURSEVEN.txt'
-
+LEntertainment = 'LiVE/LIVETV.m3u'
+LMovies = 'LiVE/LIVEMOVIES.m3u'
+LKids = 'LiVE/LIVEKIDS.m3u'
+LSports = 'LiVE/LIVESPORTS.m3u'
+LSSports = 'LiVE/LiveStalkerSport.m3u'
 
 def AllLiveTV():
 	LiveEntertainment()
@@ -25,70 +24,35 @@ def AllLiveTV():
 	modules.AUTO_VIEW('518')
 
 def LiveEntertainment():
-	link = modules.OPEN_URL(BaseURL + LEntertainment).replace('\n','').replace('\r','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
-	for name,url,iconimage,fanart,description in match:
-		image = iconimage
-		addon_handle = int(sys.argv[1])
-		xbmcplugin.setContent(addon_handle, 'movies')
-		li = xbmcgui.ListItem(name, description, iconImage=image)
-		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
-
+	url = BaseURL + LEntertainment
+	modules.TestMenuDIR(url)
 	modules.AUTO_VIEW('518')
 
 def LiveMovies():
-	link = modules.OPEN_URL(BaseURL + LMovies).replace('\n','').replace('\r','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
-	for name,url,iconimage,fanart,description in match:
-		image = iconimage
-		addon_handle = int(sys.argv[1])
-		xbmcplugin.setContent(addon_handle, 'movies')
-		li = xbmcgui.ListItem(name, description, iconImage=image)
-		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
+	url = BaseURL + LMovies
+	modules.TestMenuDIR(url)
 	modules.AUTO_VIEW('518')
 
 def LiveKids():
-	link = modules.OPEN_URL(BaseURL + LKids).replace('\n','').replace('\r','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
-	for name,url,iconimage,fanart,description in match:
-		image = iconimage
-		addon_handle = int(sys.argv[1])
-		xbmcplugin.setContent(addon_handle, 'movies')
-		li = xbmcgui.ListItem(name, description, iconImage=image)
-		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
+	url = BaseURL + LKids
+	modules.TestMenuDIR(url)
 	modules.AUTO_VIEW('518')
 
 def LiveSport():
-	link = modules.OPEN_URL(BaseURL + LSports).replace('\n','').replace('\r','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
-	for name,url,iconimage,fanart,description in match:
-		image = iconimage
-		addon_handle = int(sys.argv[1])
-		xbmcplugin.setContent(addon_handle, 'movies')
-		li = xbmcgui.ListItem(name, description, iconImage=image)
-		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
-		
-	modules.addDir('IPTV Stalker Live Sports','',26,ART+'LiveSport.png',FANART,'')
+	url = BaseURL + LSports
+	modules.TestMenuDIR(url)
+	modules.addDir('IPTV Stalker','',26,ART+'IPTVStalker.png',FANART,'')
 	modules.AUTO_VIEW('518')
 
-def TwentyFour_Seven():
-	link = modules.OPEN_URL(BaseURL + TwentyFS).replace('\n','').replace('\r','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
-	for name,url,iconimage,fanart,description in match:
-		image = iconimage
-		addon_handle = int(sys.argv[1])
-		xbmcplugin.setContent(addon_handle, 'movies')
-		li = xbmcgui.ListItem(name, description, iconImage=image)
-		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
-	modules.AUTO_VIEW('518')
+def Music():
+	modules.addDir('MTV TEST','',2,ART+'UKTop100.png',FANART,'')
+	modules.AUTO_VIEW('500')
+
+def Adult_Live():
+	modules.addDir('Adult Live TEST','',2,ART+'UKTop100.png',FANART,'')
+	modules.AUTO_VIEW('500')
 
 def LiveStalkerSport():
-	link = modules.OPEN_URL(BaseURL + LSSports).replace('\n','').replace('\r','')
-	match = re.compile('name="(.+?)".+?rl="(.+?)".+?mg="(.+?)".+?anart="(.+?)".+?escription="(.+?)"').findall(link)
-	for name,url,iconimage,fanart,description in match:
-		image = iconimage
-		addon_handle = int(sys.argv[1])
-		xbmcplugin.setContent(addon_handle, 'movies')
-		li = xbmcgui.ListItem(name, description, iconImage=image)
-		xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
+	url = BaseURL + LSSports
+	modules.TestMenuDIR(url)
 	modules.AUTO_VIEW('518')

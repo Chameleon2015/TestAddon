@@ -3,7 +3,7 @@ import time
 import urllib, urllib2
 import re
 from resources.modules import modules, yt
-from resources.menus import SportsReplayMenu, LiveTvMenu, TestMenu
+from resources.menus import LiveTvMenu, ODMenu
 from addon.common.addon import Addon
 from addon.common.net import Net
 
@@ -11,7 +11,7 @@ from addon.common.net import Net
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.5"
+VERSION = "0.0.6"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -28,31 +28,28 @@ addon_handle = int(sys.argv[1])
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def HOME_MENU():
-	modules.addDir('Test Menu', BaseURL + 'Entertainment.m3u',27,ART+'LiveTv.png','','')
+	modules.addDir('Test Menu', BaseURL + 'LiVE/Entertainment.m3u',27,ART+'TestMenu.png','','')
 	modules.addDir('Live TV','',1,ART+'LiveTv.png','','')
-#	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
-#	modules.addDir('Live Sports','',3,ART+'LiveSport.png',FANART,'')
-	modules.addDir('Sports Replays','',4,ART+'SportReplay.png',FANART,'')
-#	modules.addDir('Live Movies','',6,ART+'LiveMovies.png',FANART,'')
-#	modules.addDir('Movies','',7,ART+'Movies.png',FANART,'')
-#	modules.addDir('Music','',8,ART+'Music.png',FANART,'')
-#	modules.addDir('24/7 Shows','',11,ART+'SportReplay.png',FANART,'')
+	modules.addDir('OnDemand','',3,ART+'OnDemand.png',FANART,'')
+	modules.addDir('Movies','',7,ART+'Movies.png',FANART,'')
+	modules.addDir('Adult','',6,ART+'Adult.png',FANART,'')
+	modules.addDir('Music','',8,ART+'Music.png',FANART,'')
+	
 	AUTO_VIEW('500')
 
 def LIVE_TV():
 	modules.addDir('All','',20,ART+'LiveTv.png','','hello all the world')
-	modules.addDir('Entertainment','',24,ART+'LiveTv.png','','hello all the world')
-	modules.addDir('Movies','',21,ART+'LiveTv.png','','hello all the world')
-	modules.addDir('Kids','',22,ART+'LiveTv.png','','hello all the world')
-	modules.addDir('Sport','',23,ART+'LiveTv.png','','hello all the world')
+	modules.addDir('Entertainment','',24,ART+'Entertainment.png','','hello all the world')
+	modules.addDir('Movies','',21,ART+'Movies.png','','hello all the world')
+	modules.addDir('Kids','',22,ART+'Kids.png','','hello all the world')
+	modules.addDir('Sport','',23,ART+'Sports.png','','hello all the world')
+	modules.addDir('Music','',29,ART+'Music.png','','hello all the world')
 	AUTO_VIEW('500')
 
-def TV_SHOWS():
+def On_Demand():
 	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
-	AUTO_VIEW('500')
-
-def LIVE_SPORTS():
-	modules.addDir('Live Sports','',2,ART+'LiveSport.png',FANART,'')
+	modules.addDir('24/7 Shows','',11,ART+'24_7TVShows.png',FANART,'')
+	modules.addDir('Sports Replays','',4,ART+'SportReplay.png',FANART,'')
 	AUTO_VIEW('500')
 
 def SPORTS_RP():
@@ -60,16 +57,13 @@ def SPORTS_RP():
 	modules.addDir('Match Of The Day','',25,ART+'LiveTv.png','','')
 	AUTO_VIEW('500')
 
-def LIVE_MOVIES():
-	modules.addDir('Live Movies','',2,ART+'family.png',FANART,'')
-	AUTO_VIEW('500')
-
-def MOVIES_OD():
-	modules.addDir('Movies','',2,ART+'family.png',FANART,'')
+def Adult_XxX():
+	modules.addDir('Live','',30,ART+'LiveTv.png',FANART,'')
+	modules.addDir('OnDemand','',12,ART+'OnDemand.png',FANART,'')
 	AUTO_VIEW('500')
 
 def MUSIC():
-	modules.addDir('Movies','',2,ART+'family.png',FANART,'')
+	modules.addDir('Hot UK Top 100','',2,ART+'UKTop100.png',FANART,'')
 	AUTO_VIEW('500')
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -168,24 +162,28 @@ print "IconImage: "+str(iconimage)
 if mode == None		: HOME_MENU()
 elif mode == 1		: LIVE_TV()
 elif mode == 2		: TV_SHOWS()
-elif mode == 3		: LIVE_SPORTS()
+elif mode == 3		: On_Demand()
 elif mode == 4		: SPORTS_RP()
-elif mode == 6		: LIVE_MOVIES()
-elif mode == 7		: MOVIES_OD()
+elif mode == 6		: Adult_XxX()
+elif mode == 7		: ODMenu.MOVIES_OD()
 elif mode == 8		: MUSIC()
 elif mode == 9		: yt.PlayVideo(url)
-elif mode == 10		: SportsReplayMenu.NRL_YT_RP()
-elif mode == 11		: LiveTvMenu.TwentyFour_Seven()
+elif mode == 10		: ODMenu.NRL_YT_RP()
+elif mode == 11		: ODMenu.TwentyFour_Seven()
+elif mode == 12		: ODMenu.Adult_OD()
 elif mode == 19		: modules.Play_URL(name, url, iconimage)
 elif mode == 20		: LiveTvMenu.AllLiveTV()
 elif mode == 21		: LiveTvMenu.LiveMovies()
 elif mode == 22		: LiveTvMenu.LiveKids()
-elif mode == 23		: LiveTvMenu.LiveStalkerSport()
+elif mode == 23		: LiveTvMenu.LiveSport()
 elif mode == 24		: LiveTvMenu.LiveEntertainment()
-elif mode == 25		: SportsReplayMenu.YT_Match_Of_The_Day()
+elif mode == 25		: ODMenu.YT_Match_Of_The_Day()
 elif mode == 26		: LiveTvMenu.LiveStalkerSport()
-elif mode == 27		: TestMenu.TestMenuDIR(url)
+elif mode == 27		: modules.TestMenuDIR(url)
 elif mode == 28		: modules.TestPlayUrl(name, url, iconimage)
+elif mode == 29		: LiveTvMenu.Music()
+elif mode == 30		: LiveTvMenu.Adult_Live()
+
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

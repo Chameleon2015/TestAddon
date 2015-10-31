@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.entertainmentlounge" name="Entertainment Lounge" version="0.0.5" provider-name="Chameleon-Builds">
+<addon id="plugin.video.entertainmentlounge" name="Entertainment Lounge" version="0.0.6" provider-name="Chameleon-Builds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
@@ -15,7 +15,7 @@
   </extension>
 </addon>
 
-    <addon id="repository.ChameleonTest" name="Chameleon Test Repo" version="1.0.0" provider-name="Chameleon">
+    <addon id="repository.ChameleonTest" name="Chameleon Test Repo" version="1.0.1" provider-name="Chameleon">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
