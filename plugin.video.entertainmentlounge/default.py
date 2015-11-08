@@ -1,9 +1,12 @@
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, os, sys
 import time
 import urllib, urllib2
-import re
+import re, urlparse, json
+import hashlib
 from resources.modules import modules, yt
+from resources.modules.parsers import parser
 from resources.menus import LiveTvMenu, ODMenu
+from resources.scrapers import Wsimpsons
 from addon.common.addon import Addon
 from addon.common.net import Net
 
@@ -11,7 +14,7 @@ from addon.common.net import Net
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.6"
+VERSION = "0.0.7"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -20,31 +23,26 @@ ICON = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID, 'ico
 ART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID + '/resources/icons/'))
 BaseURL = 'http://chameleon.x10host.com/test/links/'
 
-#********** Test Text Files YouTube**********
-addon_handle = int(sys.argv[1])
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #********** Menu's **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def HOME_MENU():
-	modules.addDir('Test Menu', BaseURL + 'LiVE/Entertainment.m3u',27,ART+'TestMenu.png','','')
+	#modules.addDir('Test Menu', BaseURL + 'LiVE/Entertainment.m3u',27,ART+'TestMenu.png','','')
+	#modules.addDir('Watch Simpsons Test','',32,ART+'TestMenu.png','','')
 	modules.addDir('Live TV','',1,ART+'LiveTv.png','','')
 	modules.addDir('OnDemand','',3,ART+'OnDemand.png',FANART,'')
 	modules.addDir('Movies','',7,ART+'Movies.png',FANART,'')
 	modules.addDir('Adult','',6,ART+'Adult.png',FANART,'')
 	modules.addDir('Music','',8,ART+'Music.png',FANART,'')
 	
-	AUTO_VIEW('500')
+	AUTO_VIEW('518')
 
 def LIVE_TV():
-	modules.addDir('All','',20,ART+'LiveTv.png','','hello all the world')
-	modules.addDir('Entertainment','',24,ART+'Entertainment.png','','hello all the world')
-	modules.addDir('Movies','',21,ART+'Movies.png','','hello all the world')
-	modules.addDir('Kids','',22,ART+'Kids.png','','hello all the world')
-	modules.addDir('Sport','',23,ART+'Sports.png','','hello all the world')
-	modules.addDir('Music','',29,ART+'Music.png','','hello all the world')
-	AUTO_VIEW('500')
+	modules.addDir('All Channels','http://chameleon.x10host.com/test/links/TestChannel.php',20,ART+'LiveTv.png','','')
+	parser.Categories('http://chameleon.x10host.com/test/links/TestChannel.php')
+	AUTO_VIEW('518')
 
 def On_Demand():
 	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
@@ -66,14 +64,12 @@ def MUSIC():
 	modules.addDir('Hot UK Top 100','',2,ART+'UKTop100.png',FANART,'')
 	AUTO_VIEW('500')
 
+def IPTVplayLevel():
+	tvscraper.playLevel()
+
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #********** Modules **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
 
 def Text_Boxes(heading,anounce):
   class TextBox():
@@ -159,20 +155,21 @@ print "URL: "+str(url)
 print "Name: "+str(name)
 print "IconImage: "+str(iconimage)
 
+
 if mode == None		: HOME_MENU()
 elif mode == 1		: LIVE_TV()
-elif mode == 2		: TV_SHOWS()
+elif mode == 2		: ODMenu.TV_SHOWS()
 elif mode == 3		: On_Demand()
 elif mode == 4		: SPORTS_RP()
 elif mode == 6		: Adult_XxX()
-elif mode == 7		: ODMenu.MOVIES_OD()
+elif mode == 7		: GenVideos.ScrapData()
 elif mode == 8		: MUSIC()
 elif mode == 9		: yt.PlayVideo(url)
 elif mode == 10		: ODMenu.NRL_YT_RP()
 elif mode == 11		: ODMenu.TwentyFour_Seven()
 elif mode == 12		: ODMenu.Adult_OD()
 elif mode == 19		: modules.Play_URL(name, url, iconimage)
-elif mode == 20		: LiveTvMenu.AllLiveTV()
+elif mode == 20		: LiveTvMenu.AllLiveTV(url)
 elif mode == 21		: LiveTvMenu.LiveMovies()
 elif mode == 22		: LiveTvMenu.LiveKids()
 elif mode == 23		: LiveTvMenu.LiveSport()
@@ -183,7 +180,10 @@ elif mode == 27		: modules.TestMenuDIR(url)
 elif mode == 28		: modules.TestPlayUrl(name, url, iconimage)
 elif mode == 29		: LiveTvMenu.Music()
 elif mode == 30		: LiveTvMenu.Adult_Live()
-
+elif mode == 31		: Wsimpsons.ParseURL(url)
+elif mode == 32		: ODMenu.watchSimp()
+elif mode == 33		: parser.Categories(url)
+elif mode == 34		: parser.Category(name, url)
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import re, sys, os, xbmc, xbmcaddon, xbmcplugin, xbmcgui, urllib, urllib2
 from resources.modules import modules, yt
-
+from resources.modules.parsers import parser
 
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
@@ -13,15 +13,16 @@ LEntertainment = 'LiVE/LIVETV.m3u'
 LMovies = 'LiVE/LIVEMOVIES.m3u'
 LKids = 'LiVE/LIVEKIDS.m3u'
 LSports = 'LiVE/LIVESPORTS.m3u'
-LSSports = 'LiVE/LiveStalkerSport.m3u'
 
-def AllLiveTV():
-	LiveEntertainment()
-	LiveMovies()
-	LiveKids()
-	LiveSport()
+def AllLiveTV(url):
+	parser.Category('Entertainment', url)
+	parser.Category('Kids', url)
+	parser.Category('Music', url)
+	parser.Category('Movies', url)
+	parser.Category('Sports', url)
+	parser.Category('Radio', url)
 	
-	modules.AUTO_VIEW('518')
+	modules.AUTO_VIEW('500')
 
 def LiveEntertainment():
 	url = BaseURL + LEntertainment
@@ -41,18 +42,17 @@ def LiveKids():
 def LiveSport():
 	url = BaseURL + LSports
 	modules.TestMenuDIR(url)
-	modules.addDir('IPTV Stalker','',26,ART+'IPTVStalker.png',FANART,'')
 	modules.AUTO_VIEW('518')
 
 def Music():
+	url = 'http://community-links.googlecode.com/svn/trunk/MrCuddlesTVLinks.xml'
+	modules.TestMenuDIR(url)
 	modules.addDir('MTV TEST','',2,ART+'UKTop100.png',FANART,'')
 	modules.AUTO_VIEW('500')
 
 def Adult_Live():
 	modules.addDir('Adult Live TEST','',2,ART+'UKTop100.png',FANART,'')
 	modules.AUTO_VIEW('500')
-
-def LiveStalkerSport():
-	url = BaseURL + LSSports
-	modules.TestMenuDIR(url)
-	modules.AUTO_VIEW('518')
+	
+	
+	

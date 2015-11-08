@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
-<addon id="plugin.video.entertainmentlounge" name="Entertainment Lounge" version="0.0.6" provider-name="Chameleon-Builds">
+<addon id="plugin.video.entertainmentlounge" name="Entertainment Lounge" version="0.0.7" provider-name="Chameleon-Builds">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
 	<import addon="script.module.addon.common" />
+	<import addon="script.module.beautifulsoup4" />
+	<import addon="script.module.requests" />
   </requires>
   <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>

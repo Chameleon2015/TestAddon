@@ -1,7 +1,6 @@
 import re, sys, os, xbmc, xbmcaddon, xbmcplugin, xbmcgui, urllib, urllib2
 from resources.modules import modules, yt
 
-
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 BaseURL = 'http://chameleon.x10host.com/test/links/'
@@ -12,10 +11,16 @@ FANART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID , '
 TwentyFS = 'ONDeMaND/TWENTYFOURSEVEN.m3u'
 NrlYTGames = 'ONDeMaND/NRLGAMESYT.m3u'
 YTMatchOfTheDay = 'ONDeMaND/YTMatchOfTheDay.m3u'
+WSimpsons = 'ONDeMaND/WSimpsons.m3u'
 
 def TV_SHOWS():
-	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
-	AUTO_VIEW('500')
+	modules.addDir('Watch Simpsons','',32,ART+'Music.png',FANART,'')
+	modules.AUTO_VIEW('518')
+
+def watchSimp():
+	url = BaseURL + WSimpsons
+	modules.TestMenuDIR2(url)
+	modules.AUTO_VIEW('518')
 
 def TwentyFour_Seven():
 	url = BaseURL + TwentyFS
@@ -33,7 +38,7 @@ def YT_Match_Of_The_Day():
 	modules.AUTO_VIEW('518')
 
 def MOVIES_OD():
-	modules.addDir('Movies','',2,ART+'MoviesOD.png',FANART,'')
+	
 	modules.AUTO_VIEW('500')
 
 def Adult_OD():
