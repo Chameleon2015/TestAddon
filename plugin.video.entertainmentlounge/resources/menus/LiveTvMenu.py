@@ -22,7 +22,8 @@ def AllLiveTV(url):
 	parser.Category('Sports', url)
 	parser.Category('Radio', url)
 	
-	modules.AUTO_VIEW('500')
+	modules.AUTO_VIEW('504')
+	#modules.setView('tv', 'MAIN')
 
 def LiveEntertainment():
 	url = BaseURL + LEntertainment

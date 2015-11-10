@@ -124,3 +124,8 @@ def TestPlayUrl(name, url, iconimage=None):
 
 def AUTO_VIEW(Vmode = ''):
 	xbmc.executebuiltin("Container.SetViewMode(" + Vmode +")")
+
+def setView(content, viewType):
+    # set content type so library shows more views and info
+    if content:
+        xbmcplugin.setContent(int(sys.argv[1]), content)

@@ -39,7 +39,7 @@ def Categories(url):
 		fanart = CatData[2]
 		modules.addDir(category,url,34,ART+icon,ART+fanart,'')
 	
-	modules.AUTO_VIEW('518')
+	modules.AUTO_VIEW('500')
 
 
 def Category(name, url):
@@ -83,13 +83,27 @@ def Category(name, url):
 				for Fanart in fanart:
 					DataList.append(Fanart)
 			
+			GetDesc = item.find_all('p', {'class': 'Description'})
+			for Desc in GetDesc:
+				Description = re.findall(r'<p class="Description">(.*?)</p>',str(Desc))
+				for description in Description:
+					DataList.append(description)
+			
+			
+			
 			title = DataList[0]
 			url = DataList[1]
 			mode = int(DataList[2])
 			icon = DataList[3]
 			fanart = DataList[4]
+			if len(DataList)>=6:
+					info = DataList[5]
+			else:
+				info = 'Sorry this description is currently unavailable'
+			
+			
 
-			modules.AddTestDir(title,url,mode,icon,isFolder=False, background=fanart)
+			modules.AddTestDir(title,url,mode,icon,description=info,isFolder=False, background=fanart)
 	
-		modules.AUTO_VIEW('500')
+		modules.setView('movies', 'MAIN')
 		   
