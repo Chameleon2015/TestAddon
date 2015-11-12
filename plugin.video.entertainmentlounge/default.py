@@ -29,7 +29,7 @@ go = True;
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.8"
+VERSION = "0.0.9"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -55,9 +55,20 @@ def HOME_MENU():
 	AUTO_VIEW('500')
 
 def LIVE_TV():
-	modules.addDir('All Channels','http://chameleon.x10host.com/test/links/TestChannel.php',20,ART+'LiveTv.png','','')
-	parser.Categories('http://chameleon.x10host.com/test/links/TestChannel.php')
-	modules.addDir('Premium TV','',35,ART+'LiveTv.png','','')
+	try:
+		modules.addDir('All Channels','http://chameleon.x10host.com/test/links/TestChannel.php',20,ART+'LiveTv.png','','')
+	except:
+		pass
+	
+	try:
+		parser.Categories('http://chameleon.x10host.com/test/links/TestChannel.php')
+	except:
+		pass
+	
+	try:
+		modules.addDir('Premium TV','',35,ART+'PremiumTV.png','','')
+	except:
+		pass
 	
 	AUTO_VIEW('500')
 
@@ -143,7 +154,7 @@ def addPortal(portal):
 	
 	cmd = 'XBMC.RunPlugin(' + base_url + '?mode=cache&stalker_url=' + portal['url'] + ')';	
 	
-	li = xbmcgui.ListItem(portal['name'], iconImage='DefaultProgram.png')
+	li = xbmcgui.ListItem(portal['name'], iconImage=ART+'PremiumTV.png')
 	li.addContextMenuItems([ ('Clear Cache', cmd) ]);
 
 	xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li, isFolder=True);
