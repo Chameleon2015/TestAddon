@@ -20,7 +20,9 @@ def AllLiveTV(url):
 	parser.Category('Music', url)
 	parser.Category('Movies', url)
 	parser.Category('Sports', url)
+	parser.Category('News', url)
 	parser.Category('Radio', url)
+	parser.Category('Other', url)
 	
 	modules.AUTO_VIEW('504')
 	#modules.setView('tv', 'MAIN')

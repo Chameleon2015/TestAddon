@@ -29,7 +29,7 @@ go = True;
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.9"
+VERSION = "0.0.10"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
@@ -48,20 +48,21 @@ def HOME_MENU():
 	#modules.addDir('Watch Simpsons Test','',32,ART+'TestMenu.png','','')
 	modules.addDir('Live TV','',1,ART+'LiveTv.png','','')
 	modules.addDir('OnDemand','',3,ART+'OnDemand.png',FANART,'')
+	modules.addDir('ChristmasFilms','http://chameleon.x10host.com/test/links/newtest/ChristmasFilms.php',34,ART+'LiveTv.png','','')
 	modules.addDir('Movies','',7,ART+'Movies.png',FANART,'')
 	modules.addDir('Adult','',6,ART+'Adult.png',FANART,'')
 	modules.addDir('Music','',8,ART+'Music.png',FANART,'')
 	xbmcplugin.endOfDirectory(addon_handle);
-	AUTO_VIEW('500')
+	AUTO_VIEW('504')
 
 def LIVE_TV():
 	try:
-		modules.addDir('All Channels','http://chameleon.x10host.com/test/links/TestChannel.php',20,ART+'LiveTv.png','','')
+		modules.addDir('All Channels','http://chameleon.x10host.com/test/links/newtest/?list=GetCat',20,ART+'LiveTv.png','','')
 	except:
 		pass
 	
 	try:
-		parser.Categories('http://chameleon.x10host.com/test/links/TestChannel.php')
+		parser.Categories('GetCat')
 	except:
 		pass
 	
@@ -70,7 +71,7 @@ def LIVE_TV():
 	except:
 		pass
 	
-	AUTO_VIEW('500')
+	AUTO_VIEW('504')
 
 def On_Demand():
 	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
@@ -182,6 +183,8 @@ def homeLevel():
 		addPortal(portal_10);
 	
 		xbmcplugin.endOfDirectory(addon_handle);
+	
+	AUTO_VIEW('504')
 
 def genreLevel():
 	
@@ -562,6 +565,7 @@ elif mode == 32		: ODMenu.watchSimp()
 elif mode == 33		: parser.Categories(url)
 elif mode == 34		: parser.Category(name, url)
 elif mode == 35		: PremiumTVMenu()
+elif mode == 36		: parser.ChannelLinks(name, url)
 
 #-----------------------------------------------------
 
