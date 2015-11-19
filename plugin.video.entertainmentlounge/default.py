@@ -1,5 +1,5 @@
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, os, sys
-import time, urllib, urllib2
+import time, urllib, urllib2, base64
 import re, urlparse, json, hashlib
 
 import server, config, load_channels
@@ -23,20 +23,21 @@ base_url = sys.argv[0]
 addon_handle = int(sys.argv[1])
 args = urlparse.parse_qs(sys.argv[2][1:])
 go = True;
+Decode = base64.decodestring
 #---------------------------------------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #********** Variables **********
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PATH = "Entertainment Lounge"
-VERSION = "0.0.10"
+VERSION = "0.0.11"
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
 HOME = ADDON.getAddonInfo('path')
 FANART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID , 'fanart.jpg'))
 ICON = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID, 'icon.png'))
 ART = xbmc.translatePath(os.path.join('special://home/addons/' + ADDON_ID + '/resources/icons/'))
-BaseURL = 'http://chameleon.x10host.com/test/links/'
+BaseURL = 'aHR0cDovL2NoYW1lbGVvbi54MTBob3N0LmNvbS90ZXN0L2xpbmtzLw=='
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,22 +48,22 @@ def HOME_MENU():
 	#modules.addDir('Test Menu', BaseURL + 'LiVE/Entertainment.m3u',27,ART+'TestMenu.png','','')
 	#modules.addDir('Watch Simpsons Test','',32,ART+'TestMenu.png','','')
 	modules.addDir('Live TV','',1,ART+'LiveTv.png','','')
-	modules.addDir('OnDemand','',3,ART+'OnDemand.png',FANART,'')
-	modules.addDir('ChristmasFilms','http://chameleon.x10host.com/test/links/newtest/ChristmasFilms.php',34,ART+'LiveTv.png','','')
+	modules.addDir('Live Sport Events',Decode('aHR0cDovL2VudGVydGFpbm1lbnRsaXN0cy54MTBob3N0LmNvbS9MaXN0cy8/bW9kZT1TcG9ydHNFdmVudHMmbGlzdD1HZXRFdmVudHM='),40,ART+'LiveTv.png','','')
+	#modules.addDir('OnDemand','',3,ART+'OnDemand.png',FANART,'')
 	modules.addDir('Movies','',7,ART+'Movies.png',FANART,'')
-	modules.addDir('Adult','',6,ART+'Adult.png',FANART,'')
-	modules.addDir('Music','',8,ART+'Music.png',FANART,'')
+	#modules.addDir('Adult','',6,ART+'Adult.png',FANART,'')
+	#modules.addDir('Music','',8,ART+'Music.png',FANART,'')
 	xbmcplugin.endOfDirectory(addon_handle);
 	AUTO_VIEW('504')
 
 def LIVE_TV():
 	try:
-		modules.addDir('All Channels','http://chameleon.x10host.com/test/links/newtest/?list=GetCat',20,ART+'LiveTv.png','','')
+		modules.addDir('All Channels',Decode('aHR0cDovL2VudGVydGFpbm1lbnRsaXN0cy54MTBob3N0LmNvbS9MaXN0cy8/bW9kZT1MaXZlVFYmbGlzdD1HZXRDYXQ='),20,ART+'LiveTv.png','','')
 	except:
 		pass
 	
 	try:
-		parser.Categories('GetCat')
+		parser.TVCategories(Decode('bW9kZT1MaXZlVFYmbGlzdD1HZXRDYXQ='))
 	except:
 		pass
 	
@@ -72,6 +73,15 @@ def LIVE_TV():
 		pass
 	
 	AUTO_VIEW('504')
+
+def LiveSports(url):
+	try:
+		parser.Category('Live Sports', url)
+	except:
+		pass
+	
+	AUTO_VIEW('504')
+
 
 def On_Demand():
 	modules.addDir('TV Shows','',2,ART+'TvShows.png',FANART,'')
@@ -108,10 +118,10 @@ def PremiumTVMenu():
 		addPortal(portal_4);
 		addPortal(portal_5);
 		addPortal(portal_6);
-		addPortal(portal_7);
-		addPortal(portal_8);
-		addPortal(portal_9);
-		addPortal(portal_10);
+		#addPortal(portal_7);
+		#addPortal(portal_8);
+		#addPortal(portal_9);
+		#addPortal(portal_10);
 	
 		xbmcplugin.endOfDirectory(addon_handle);
 
@@ -542,7 +552,7 @@ elif mode == 2		: ODMenu.TV_SHOWS()
 elif mode == 3		: On_Demand()
 elif mode == 4		: SPORTS_RP()
 elif mode == 6		: Adult_XxX()
-elif mode == 7		: GenVideos.ScrapData()
+elif mode == 7		: ODMenu.MOVIES_OD()
 elif mode == 8		: MUSIC()
 elif mode == 9		: yt.PlayVideo(url)
 elif mode == 10		: ODMenu.NRL_YT_RP()
@@ -562,10 +572,15 @@ elif mode == 29		: LiveTvMenu.Music()
 elif mode == 30		: LiveTvMenu.Adult_Live()
 elif mode == 31		: Wsimpsons.ParseURL(url)
 elif mode == 32		: ODMenu.watchSimp()
-elif mode == 33		: parser.Categories(url)
+elif mode == 33		: parser.TVCategories(url)
 elif mode == 34		: parser.Category(name, url)
 elif mode == 35		: PremiumTVMenu()
 elif mode == 36		: parser.ChannelLinks(name, url)
+elif mode == 37		: parser.MovieCategories(url)
+elif mode == 38		: parser.LiveSportCategories(url)
+elif mode == 39		: ODMenu.ALLMOVIES_OD(url)
+elif mode == 40		: LiveSports(url)
+elif mode == 41		: modules.Resolve(name, url)
 
 #-----------------------------------------------------
 

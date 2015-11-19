@@ -1,6 +1,7 @@
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon, os, sys
 import urllib, urllib2
 from resources.modules import common
+import urlresolver
 
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
@@ -98,7 +99,46 @@ def addYTVID(type,name,url,mode,iconimage = '',fanart = '',video = '',descriptio
 
 def Add_Directory_Item(handle, url, listitem, isFolder):
     xbmcplugin.addDirectoryItem(handle, url, listitem, isFolder) 
+
+#-------------------------------------------------------------------------------------------------------------------------------------
 	
+def Resolve(name, url): 
+    play=xbmc.Player(GetPlayerCore())
+    import urlresolver
+    try: play.play(url)
+    except: pass
+    from urlresolver import common
+    dp = xbmcgui.DialogProgress()
+    dp.create('LOADING','Opening %s Now'%(name))
+    play=xbmc.Player(GetPlayerCore())
+    url=urlresolver.HostedMediaFile(url).resolve() 
+    if dp.iscanceled(): 
+        print "[COLORred]STREAM CANCELLED[/COLOR]" # need to get this part working    
+        dialog = xbmcgui.Dialog()
+        if dialog.yesno("[B]CANCELLED[/B]", '[B]Was There A Problem[/B]','', "",'Yes','No'):
+            dialog.ok("Message Send", "Your Message Has Been Sent")
+        else:
+	         return
+    else:
+        try: play.play(url)
+        except: pass
+        try: ADDON.resolve_url(url) 
+        except: pass 
+        dp.close()
+
+def GetPlayerCore(): 
+    try: 
+        PlayerMethod=getSet("core-player") 
+        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
+        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
+        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
+        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
+    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
+    return PlayerMeth 
+    return True 
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+
 def OPEN_URL(url):
     req = urllib2.Request(url)
     req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')

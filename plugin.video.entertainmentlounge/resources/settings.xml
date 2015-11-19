@@ -25,9 +25,9 @@
     
     <category label="33001">
 		<setting id="portal_name_2" type="text" label="30000" default="Premium 2" />
-   	 	<setting id="portal_url_2" type="text" label="30001" default="http://portal.iptvprivateserver.tv" />
+   	 	<setting id="portal_url_2" type="text" label="30001" default="http://mw1.iptv66.tv" />
    	 	<setting label="30008" type="bool" id="custom_mac_2" default="true"/>
-   	 	<setting id="portal_mac_2" type="text" label="30002" default="00:1A:78:00:09:00" visible="eq(-2,false)" />
+   	 	<setting id="portal_mac_2" type="text" label="30002" default="00:1A:78:00:00:67" visible="eq(-2,false)" />
    	 	
    	 	<setting label="30009" type="bool" id="send_serial_2" default="true"/>
    	 	<setting label="30014" type="bool" id="custom_serial_2" default="false" visible="eq(-1,true)"/>
@@ -40,9 +40,9 @@
     
     <category label="33001">
 		<setting id="portal_name_3" type="text" label="30000" default="Premium 3" />
-   	 	<setting id="portal_url_3" type="text" label="30001" default="http://portal.iptvprivateserver.tv" />
+   	 	<setting id="portal_url_3" type="text" label="30001" default="http://portal.iptvrocket.tv" />
    	 	<setting label="30008" type="bool" id="custom_mac_3" default="true"/>
-   	 	<setting id="portal_mac_3" type="text" label="30002" default="00:1A:79:01:01:01" visible="eq(-2,false)" />
+   	 	<setting id="portal_mac_3" type="text" label="30002" default="00:1A:78:00:00:67" visible="eq(-2,false)" />
    	 	
    	 	<setting label="30009" type="bool" id="send_serial_3" default="true"/>
    	 	<setting label="30014" type="bool" id="custom_serial_3" default="false" visible="eq(-1,true)"/>
@@ -57,7 +57,7 @@
 		<setting id="portal_name_4" type="text" label="30000" default="Premium 4" />
    	 	<setting id="portal_url_4" type="text" label="30001" default="http://portal.iptvprivateserver.tv" />
    	 	<setting label="30008" type="bool" id="custom_mac_4" default="true"/>
-   	 	<setting id="portal_mac_4" type="text" label="30002" default="00:1A:79:02:20:00" visible="eq(-2,false)" />
+   	 	<setting id="portal_mac_4" type="text" label="30002" default="00:1A:79:00:00:99" visible="eq(-2,false)" />
    	 	
    	 	<setting label="30009" type="bool" id="send_serial_4" default="true"/>
    	 	<setting label="30014" type="bool" id="custom_serial_4" default="false" visible="eq(-1,true)"/>
@@ -70,9 +70,9 @@
 	
 	    <category label="33001">
 		<setting id="portal_name_5" type="text" label="30000" default="Premium 5" />
-   	 	<setting id="portal_url_5" type="text" label="30001" default="http://portal.iptvprivateserver.tv" />
+   	 	<setting id="portal_url_5" type="text" label="30001" default="http://mw1.iptv66.tv" />
    	 	<setting label="30008" type="bool" id="custom_mac_5" default="true"/>
-   	 	<setting id="portal_mac_5" type="text" label="30002" default="00:1A:79:17:00:00" visible="eq(-2,false)" />
+   	 	<setting id="portal_mac_5" type="text" label="30002" default="00:1A:79:00:00:99" visible="eq(-2,false)" />
    	 	
    	 	<setting label="30009" type="bool" id="send_serial_5" default="true"/>
    	 	<setting label="30014" type="bool" id="custom_serial_5" default="false" visible="eq(-1,true)"/>
@@ -85,9 +85,9 @@
 	
 		    <category label="33001">
 		<setting id="portal_name_6" type="text" label="30000" default="Premium 6" />
-   	 	<setting id="portal_url_6" type="text" label="30001" default="http://portal.iptvprivateserver.tv" />
+   	 	<setting id="portal_url_6" type="text" label="30001" default="http://portal.iptvrocket.tv" />
    	 	<setting label="30008" type="bool" id="custom_mac_6" default="true"/>
-   	 	<setting id="portal_mac_6" type="text" label="30002" default="00:1A:79:07:00:00" visible="eq(-2,false)" />
+   	 	<setting id="portal_mac_6" type="text" label="30002" default="00:1A:79:00:00:99" visible="eq(-2,false)" />
    	 	
    	 	<setting label="30009" type="bool" id="send_serial_6" default="true"/>
    	 	<setting label="30014" type="bool" id="custom_serial_6" default="false" visible="eq(-1,true)"/>

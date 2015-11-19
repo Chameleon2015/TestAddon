@@ -1,11 +1,11 @@
-import urllib2, re
+import urllib2, re, base64
 from resources.modules import modules
 from bs4 import BeautifulSoup
-
-ART = 'http://chameleon.x10host.com/test/ELicons/'
-BaseUrl = 'http://chameleon.x10host.com/test/links/newtest/?list='
+Decode = base64.decodestring
+ART = Decode('aHR0cDovL2NoYW1lbGVvbi54MTBob3N0LmNvbS90ZXN0L0VMaWNvbnMv')
+BaseUrl = Decode('aHR0cDovL2VudGVydGFpbm1lbnRsaXN0cy54MTBob3N0LmNvbS9MaXN0cy8/')
 #-------------------------------------------------------------------------------------
-def Categories(url):
+def TVCategories(url):
 	
     OpenURL = urllib2.urlopen(BaseUrl+url)
     soup = BeautifulSoup(OpenURL)
@@ -38,10 +38,83 @@ def Categories(url):
 		category = CatData[0]
 		icon = CatData[1]
 		fanart = CatData[2]
-		modules.addDir(category,BaseUrl+category,34,ART+icon,ART+fanart,'')
+		modules.addDir(category,BaseUrl+Decode('bW9kZT1MaXZlVFYmbGlzdD0=')+category,34,ART+icon,ART+fanart,'')
 	
 	modules.setView('livetv', 'TV-Guide')
 
+def LiveSportCategories(url):
+	
+    OpenURL = urllib2.urlopen(BaseUrl+url)
+    soup = BeautifulSoup(OpenURL)
+    OpenURL.close()
+
+    GetCategories = soup.find_all('div', {'id': 'CategorySection'})    
+    for category in GetCategories:
+
+        CatData = []
+
+        GetCategoryTitle = category.find_all('title', {'class': 'Category'})
+        for title in GetCategoryTitle:
+            title = re.findall(r'<title class="Category">(.*?)</title>',str(title))
+            for Title in title:
+                CatData.append(Title)
+
+
+        Icon = category.find_all('a', {'class': 'CategoryIcon'})
+        for icon in Icon:
+            icon = re.findall(r'<a class="CategoryIcon">(.*?)</a>',str(icon))
+            for Icon in icon:
+                CatData.append(Icon)
+				
+		Fanart = category.find_all('a', {'class': 'CategoryFanart'})
+		for fanart in Fanart:
+			fanart = re.findall(r'<a class="CategoryFanart">(.*?)</a>',str(fanart))
+			for Fanart in fanart:
+				CatData.append(Fanart)
+		
+		category = CatData[0]
+		icon = CatData[1]
+		fanart = CatData[2]
+		modules.addDir(category,BaseUrl+'mode=Live Sports&list='+category,34,ART+icon,ART+fanart,'')
+	
+	modules.setView('livetv', 'TV-Guide')
+
+def MovieCategories(url):
+	
+    OpenURL = urllib2.urlopen(BaseUrl+url)
+    soup = BeautifulSoup(OpenURL)
+    OpenURL.close()
+
+    GetCategories = soup.find_all('div', {'id': 'CategorySection'})    
+    for category in GetCategories:
+
+        CatData = []
+
+        GetCategoryTitle = category.find_all('title', {'class': 'Category'})
+        for title in GetCategoryTitle:
+            title = re.findall(r'<title class="Category">(.*?)</title>',str(title))
+            for Title in title:
+                CatData.append(Title)
+
+
+        Icon = category.find_all('a', {'class': 'CategoryIcon'})
+        for icon in Icon:
+            icon = re.findall(r'<a class="CategoryIcon">(.*?)</a>',str(icon))
+            for Icon in icon:
+                CatData.append(Icon)
+				
+		Fanart = category.find_all('a', {'class': 'CategoryFanart'})
+		for fanart in Fanart:
+			fanart = re.findall(r'<a class="CategoryFanart">(.*?)</a>',str(fanart))
+			for Fanart in fanart:
+				CatData.append(Fanart)
+		
+		category = CatData[0]
+		icon = CatData[1]
+		fanart = CatData[2]
+		modules.addDir(category,BaseUrl+'mode=Movies&list='+category,34,ART+icon,ART+fanart,'')
+	
+	modules.setView('livetv', 'TV-Guide')
 
 def Category(name, url):
 	ChannelURL = url

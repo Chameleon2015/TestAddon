@@ -1,5 +1,6 @@
 import re, sys, os, xbmc, xbmcaddon, xbmcplugin, xbmcgui, urllib, urllib2
 from resources.modules import modules, yt
+from resources.modules.parsers import parser
 
 ADDON_ID = 'plugin.video.entertainmentlounge'
 ADDON = xbmcaddon.Addon(id=ADDON_ID)
@@ -37,8 +38,20 @@ def YT_Match_Of_The_Day():
 	modules.TestMenuDIR(url)
 	modules.AUTO_VIEW('518')
 
-def MOVIES_OD():
+def ALLMOVIES_OD(url):
+	parser.Category('Christmas', url)
 	
+
+def MOVIES_OD():
+	try:
+		modules.addDir('All Movies','http://entertainmentlists.x10host.com/Lists/?mode=Movies&list=GetGenres',39,ART+'LiveTv.png','','')
+	except:
+		pass
+	
+	try:
+		parser.MovieCategories('mode=Movies&list=GetGenres')
+	except:
+		pass
 	modules.AUTO_VIEW('500')
 
 def Adult_OD():
